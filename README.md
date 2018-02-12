@@ -21,5 +21,18 @@ No I can SSH into the Pi using its IPv6 address on the `usb0` interface, e.g.:
 
         ssh pi@fe80::5563:28e9:b94e:8c3c%eth3
         
-However every time the Pi boots the IPv6 address changes, so I would like to use the hostname of the Pi to SSH into it.
+However every time the Pi boots the IPv6 address changes, so I would like to use the hostname of the Pi to SSH into it or set a fixed IP address.
 
+## Set a fixed IPv6 address
+
+To set a fixed IPv6 address, add the following lines to the `/etc/dhcpcd.conf` file:
+
+        interface usb0
+        static ip_address=169.254.64.64
+        static ip6_address=fe80::40:40
+        
+Reboot the Pi. You can now SSH into the Pi using the IPv6 address:
+
+        ssh pi@fe80::40:40
+
+For now this is the best solution, since Windows doesn't have any zeroconf or bonjour servces installed and the ones I tried don't work.
