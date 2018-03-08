@@ -40,9 +40,21 @@ For now this is the best solution, since Windows doesn't have any zeroconf or bo
 ## Interacting with the API of openweathermap.org
 
 I want to make a little weather tamagotchi that can interact in the following ways:
-* It can read the temperature of its environment by using an NTC (negative temperature coefficient) sensor.
+* It can read the temperature of its environment by using a temperature sensor.
 * It can poll the outside temperature by using open weather data.
 * Depending on those two temperature variables (and possibly other weather variables) the device outputs algorithmic music.
 * The device has a LCD display to indicate its state in a visual way.
 
-For the outside temperature I use the [current weather API of openweathermap.org](http://openweathermap.org/current). I created a Python script (`weather.py`) to get the data,
+For the outside temperature I use the [current weather API of openweathermap.org](http://openweathermap.org/current). I created a Python script (`weather.py`) to get the data, using the `requests` package.
+
+## Research about the temperature sensor
+
+The temperature sensor is an analog sensor and the Pi Zero only has digital inputs, thus the circuit needs an ADC. Domotix.com has a [nice tutorial](http://domoticx.com/raspberry-pi-temperatuur-sensor-tmp36-gpiomcp3008/) on this topic. It uses the **MCP3008** IC for the analog to digital conversion and the **TMP36** temperature sensor. Below is the wiring scheme they use to connect the sensor to a Pi:
+
+![TMP36 + MCP3008 wiring diagram](http://domoticx.com/wp-content/uploads/Raspberry-Pi-met-MCP3008-en-TMP36-schema-768x638.png)
+
+Needed components:
+* [TMP36 temperature sensor](https://www.kiwi-electronics.nl/tmp36-analoge-temperatuursensor?search=temperatuur)
+* [MCP2008 integrated circuit](https://www.kiwi-electronics.nl/MCP3008-8-kanaals-10-Bit-ADC-met-SPI-Interface)
+* 0.1 μF condensator
+* [Male-to-female jumper wires](https://www.kiwi-electronics.nl/componenten-onderdelen/prototyping/jumperwires-kabeltjes/jumperwires-10-stuks-15-cm-mafe-female)
