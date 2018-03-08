@@ -13,14 +13,14 @@ The goal is to be able to access the shell of the Pi in *Bash on Ubuntu on Windo
 
         dwc2
         g_ether
-        
+
 5. Reboot the Pi and connect an USB cable from the pc to the USB port of the Pi.
 6. If the Pi isn't discovered as an *USB Ethernet/RNDIS Gadget*, then follow the steps on [this French website](http://domotique.caron.ws/cartes-microcontroleurs/raspberrypi/pi-zero-otg-ethernet/) to install the correct driver.
 
 No I can SSH into the Pi using its IPv6 address on the `usb0` interface, e.g.:
 
         ssh pi@fe80::5563:28e9:b94e:8c3c%eth3
-        
+
 However every time the Pi boots the IPv6 address changes, so I would like to use the hostname of the Pi to SSH into it or set a fixed IP address.
 
 ## Set a fixed IPv6 address
@@ -30,9 +30,19 @@ To set a fixed IPv6 address, add the following lines to the `/etc/dhcpcd.conf` f
         interface usb0
         static ip_address=169.254.64.64
         static ip6_address=fe80::40:40
-        
+
 Reboot the Pi. You can now SSH into the Pi using the IPv6 address:
 
         ssh pi@fe80::40:40
 
 For now this is the best solution, since Windows doesn't have any zeroconf or bonjour servces installed and the ones I tried don't work.
+
+## Interacting with the API of openweathermap.org
+
+I want to make a little weather tamagotchi that can interact in the following ways:
+* It can read the temperature of its environment by using an NTC (negative temperature coefficient) sensor.
+* It can poll the outside temperature by using open weather data.
+* Depending on those two temperature variables (and possibly other weather variables) the device outputs algorithmic music.
+* The device has a LCD display to indicate its state in a visual way.
+
+For the outside temperature I use the [current weather API of openweathermap.org](http://openweathermap.org/current). I created a Python script (`weather.py`) to get the data,
