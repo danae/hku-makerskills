@@ -58,3 +58,17 @@ Needed components:
 * [MCP2008 integrated circuit](https://www.kiwi-electronics.nl/MCP3008-8-kanaals-10-Bit-ADC-met-SPI-Interface)
 * 0.1 μF condensator
 * [Male-to-female jumper wires](https://www.kiwi-electronics.nl/componenten-onderdelen/prototyping/jumperwires-kabeltjes/jumperwires-10-stuks-15-cm-mafe-female)
+
+## Reserach about the LCD display
+
+I already have an  LCD display laying around for about 3 years so I thought it would be nice to incorporate that. Raspberrytips.nl has a [tutorial](https://raspberrytips.nl/16x2-lcd-display-gpio-rpi/) on how to connect an LCD display directly on the GPIO pins. You could also connect it through a I2C bridge, but since I don't need many pins I decided to use this manner. Below is the wiring scheme for the LCD:
+
+![LCD wiring schene](https://cdn.raspberrytips.nl/wp-content/uploads/2016/11/lcd1602_schema-raspberry-pi-600x476.png)
+
+Needed components:
+* LCD display (already bought)
+* 10K variable potentiometer (3362P)
+
+## For the speaker
+
+Obviously I need a speaker.
