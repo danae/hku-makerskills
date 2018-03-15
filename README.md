@@ -12,12 +12,16 @@ First install the latest Raspbian Jessie from the Raspberry Pi website and updat
 2. Make sure an SSH server is running (use `raspi-config` to enable).
 3. Add the following line to the file `/boot/config.txt`. This will load the correct USB driver in the kernel to use the Pi as an On-The-Go device:
 
-        dtoverlay=dwc2
+```
+dtoverlay=dwc2
+```
 
 4. Add the following lines to the file `/etc/modules`. This enables the modules to use the Pi as a virtual network device:
 
-        dwc2
-        g_ether
+```
+dwc2
+g_ether
+```
 
 5. Reboot the Pi and connect an USB cable from the pc to the USB port of the Pi.
 
@@ -29,7 +33,9 @@ If the Pi isn't discovered as an *USB Ethernet/RNDIS Gadget*, then follow the st
 
 Now I can SSH into the Pi using its IPv6 address on the `usb0` interface, e.g.:
 
-        ssh pi@fe80::5563:28e9:b94e:8c3c%eth3
+```shell
+ssh pi@fe80::5563:28e9:b94e:8c3c%eth3
+```
 
 However every time the Pi boots the IPv6 address changes, due to the virtual network that is created, so I would like to use the hostname of the Pi to SSH into it or set a fixed IP address.
 
@@ -37,13 +43,17 @@ However every time the Pi boots the IPv6 address changes, due to the virtual net
 
 To set a fixed IPv6 address, add the following lines to the `/etc/dhcpcd.conf` file:
 
-        interface usb0
-        static ip_address=169.254.64.64
-        static ip6_address=fe80::40:40
+```
+interface usb0
+static ip_address=169.254.64.64
+static ip6_address=fe80::40:40
+```
 
 Reboot the Pi. You can now SSH into the Pi using the IPv6 address:
 
-        ssh pi@fe80::40:40
+```shell
+ssh pi@fe80::40:40
+```
 
 For now this is the best solution, since Windows doesn't have any zeroconf or bonjour servces installed and the ones I tried don't work.
 
@@ -100,6 +110,6 @@ Needed components:
 * LCD display 16x2 characters
 * **3362P** 10 kΩ variable potentiometer (or similar)
 
-## Research about the speaker
+### Research about the speaker
 
 Obviously I need a speaker.
