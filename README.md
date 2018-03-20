@@ -102,9 +102,9 @@ Needed components:
 
 ### Research about the LCD display
 
-I already have an  LCD display laying around for about 3 years so I thought it would be nice to incorporate that. Raspberrytips.nl has a [tutorial](https://raspberrytips.nl/16x2-lcd-display-gpio-rpi/) on how to connect an LCD display directly on the GPIO pins. You could also connect it through a I2C bridge, but since I don't need many pins I decided to use this manner. Below is the wiring scheme for the LCD:
+I already have an  LCD display laying around for about 3 years so I thought it would be nice to incorporate that. AdaFruit has a [tutorial](https://learn.adafruit.com/character-lcd-with-raspberry-pi-or-beaglebone-black/wiring) on how to connect an LCD display directly on the GPIO pins. You could also connect it through a I2C bridge, but since I don't need many pins I decided to use this manner. Below is the wiring scheme for the LCD:
 
-![LCD wiring schene](https://cdn.raspberrytips.nl/wp-content/uploads/2016/11/lcd1602_schema-raspberry-pi-600x476.png)
+![LCD wiring schene](https://cdn-learn.adafruit.com/assets/assets/000/018/260/large1024/raspberry_pi_RaspberryPiRGB_bb.png?1405984925)
 
 Needed components:
 * LCD display 16x2 characters
