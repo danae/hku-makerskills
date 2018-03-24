@@ -81,6 +81,8 @@ I want to make a little weather tamagotchi that can interact in the following wa
 * Depending on those two temperature variables (and possibly other weather variables) the device outputs algorithmic music.
 * The device has a LCD display to indicate its state in a visual way.
 
+A very handy website is [pinout.xyz](https://pinout.xyz/), which displays a RPi pinout with all harware and GPIO pin numbers and other useful information.
+
 ### Research about API integration
 
 For the outside temperature I use the [current weather API of openweathermap.org](http://openweathermap.org/current). I created a Python script to get the data, using the `requests` package:
