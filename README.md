@@ -3,15 +3,15 @@ In this repository I will post my insights during experimenting with the Raspber
 ## Contents
 
 1. Preparing the Raspberry Pi
-  * Access the Pi on Windows
-  * Set a fixed IPv6 address
-  * Accessing the internet via the OTG cable
+    * Access the Pi on Windows
+    * Set a fixed IPv6 address
+    * Accessing the internet via the OTG cable
 2. Using a PiTFT display
 3. Using sensors and other inputs
-  * Research about API integration
-  * Research about the temperature sensor
-  * Research about the LCD display
-  * Research about audio output via GPIO
+    * Research about API integration
+    * Research about the temperature sensor
+    * Research about the LCD display
+    * Research about audio output via GPIO
 
 ## Preparing the Raspberry Pi
 
