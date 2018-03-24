@@ -120,7 +120,18 @@ Needed components:
 * **TMP36** temperature sensor
 * **MCP3008** integrated circuit
 * 0.1 μF condensator
-* Male-to-female jumper wires
+
+Wiring (MCP3008 pins counted from left to right and top to bottom):
+* MCP3008 pin **1** and **2** to Pi 5V
+* MCP3008 pin **3** and **8** to Pi GND
+* MCP3008 pin **4** to Pi SPI0 SCLK (hardware pin 23) or Pi SPI1 SCLK (hardware pin 40)
+* MCP3008 pin **5** to Pi SPI0 MISO (hardware pin 21) or Pi SPI1 MISO (hardware pin 35)
+* MCP3008 pin **6** to Pi SPI0 MOSI (hardware pin 19) or Pi SPI1 MOSI (hardware pin 38)
+* MCP3008 pin **7** to Pi SPI0 CE0 (hardware pin 24) or Pi SPI1 CE0 (hardware pin 12)
+* One of the TMP36 outer pins to MCP3008 pin **1** (5V)
+* The other of the TMP36 outer pins to MCP3008 pin **3** (GND)
+* The MCP3008 middle pin to MCP3008 pin **9**
+* The 0.1 μF condensator between the TMP36 middle pin and the TMP36 GND pin
 
 ### Research about the LCD display
 
