@@ -1,5 +1,18 @@
 In this repository I will post my insights during experimenting with the Raspberry Pi Zero W.
 
+## Contents
+
+1. Preparing the Raspberry Pi
+  * Access the Pi on Windows
+  * Set a fixed IPv6 address
+  * Accessing the internet via the OTG cable
+2. Using a PiTFT display
+3. Using sensors and other inputs
+  * Research about API integration
+  * Research about the temperature sensor
+  * Research about the LCD display
+  * Research about audio output via GPIO
+
 ## Preparing the Raspberry Pi
 
 This section discusses installing the Pi and configure its networks so I can access the Pi from my host computer and vice versa, as well as connecting to the internet on the Pi.
@@ -113,12 +126,12 @@ Needed components:
 
 I already have an  LCD display laying around for about 3 years so I thought it would be nice to incorporate that. AdaFruit has a [tutorial](https://learn.adafruit.com/character-lcd-with-raspberry-pi-or-beaglebone-black/wiring) on how to connect an LCD display directly on the GPIO pins. You could also connect it through a I2C bridge, but since I don't need many pins I decided to use this manner. Below is the wiring scheme for the LCD:
 
-![LCD wiring schene](https://cdn-learn.adafruit.com/assets/assets/000/018/260/large1024/raspberry_pi_RaspberryPiRGB_bb.png?1405984925)
+![LCD wiring schene](https://cdn-learn.adafruit.com/assets/assets/000/018/260/large1024/raspberry_pi_RaspberryPiRGB_bb.png)
 
 Needed components:
 * LCD display 16x2 characters
 * **3362P** 10 kΩ variable potentiometer (or similar)
 
-### Research about the speaker
+### Research about audio output via GPIO
 
 Obviously I need a speaker.
