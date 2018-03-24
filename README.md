@@ -59,11 +59,18 @@ For now this is the best solution, since Windows doesn't have any zeroconf or bo
 
 ### Accessing the internet via the OTG cable
 
-With this settings the Pi is accessible from the host computer, but it does not have access to the internet yet. This is because the RNDIS driver creates an own virtual network on the host computer which is not visible to the main network and vice versa. To overcome this, set a fixed MAC address by adding the following line to the file `/etc/modprobe.d/g_ether.conf`. Replace xx with any hexadecimal numbers that don't match other MAC addresses on your network:
+With this settings the Pi is accessible from the host computer, but it does not have access to the internet yet. This is because the RNDIS driver creates an own virtual network on the host computer which is not visible to the main network and vice versa. I tried to overcome this by setting a fixed MAC address (thanks to [this tutorial](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=199588&p=1245602#p1245457) by adding the following line to the file `/etc/modprobe.d/g_ether.conf`. Replace xx with any hexadecimal numbers that don't match other MAC addresses on your network:
 
         options g_ether dev_addr=xx:xx:xx:xx:xx:xx
         
-(Thanks to [this tutorial](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=199588&p=1245602#p1245457).)
+Unfortunately that didn't work, so for now I use the `wlan0` WiFi interface to connect to a hotspot.
+
+
+## Using a PiTFT display
+
+I use a [PiTFT Plus 2.8" capacitive touch display](https://www.adafruit.com/product/2298) to easily access the terminal on the Pi Zero. It connects directly to the GPIO pins, so it doesn't need an extra HDMI or USB port.
+
+Unfortunately the [original AdaFruit tutorial](https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/easy-install) didn't work due to certificate problems. I used [this script](https://forums.adafruit.com/viewtopic.php?f=24&t=54246&sid=19ba7b71b9dcca00a538d2da6d6121e3&start=15#p630193) proviced by AdaFruit support to install the PiTFT.
 
 
 ## Using sensors and other inputs
