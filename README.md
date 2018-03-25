@@ -125,16 +125,16 @@ Pinout for the MCP3008 (original source: domoticx.com):
 Wiring (original source: domoticx.com):
 ![TMP36 + MCP3008 wiring diagram](http://domoticx.com/wp-content/uploads/Raspberry-Pi-met-MCP3008-en-TMP36-schema-768x638.png)
 
-* MCP3008 pin **9** to Pi GND
-* MCP3008 pin **10** to Pi SPI0 CE0 (hardware pin 24) or Pi SPI1 CE0 (hardware pin 12)
-* MCP3008 pin **11** to Pi SPI0 MOSI (hardware pin 19) or Pi SPI1 MOSI (hardware pin 38)
-* MCP3008 pin **12** to Pi SPI0 MISO (hardware pin 21) or Pi SPI1 MISO (hardware pin 35)
-* MCP3008 pin **13** to Pi SPI0 SCLK (hardware pin 23) or Pi SPI1 SCLK (hardware pin 40)
-* MCP3008 pin **14** to Pi GND
-* MCP3008 pin **15** and **16** to Pi 5V
-* One of the TMP36 outer pins to MCP3008 pin **16** (5V)
-* The other of the TMP36 outer pins to MCP3008 pin **14** (GND)
-* The TMP36 middle pin to MCP3008 pin **1**
+* MCP3008 pin **9** (DGND) to Pi GND
+* MCP3008 pin **10** (CS) to Pi SPI0 CE0 (hardware pin 24) or Pi SPI1 CE0 (hardware pin 12)
+* MCP3008 pin **11** (DIN) to Pi SPI0 MOSI (hardware pin 19) or Pi SPI1 MOSI (hardware pin 38)
+* MCP3008 pin **12** (DOUT) to Pi SPI0 MISO (hardware pin 21) or Pi SPI1 MISO (hardware pin 35)
+* MCP3008 pin **13** (CLK) to Pi SPI0 SCLK (hardware pin 23) or Pi SPI1 SCLK (hardware pin 40)
+* MCP3008 pin **14** (AGND) to Pi GND
+* MCP3008 pin **15** (VREF) and **16** (VDD) to Pi 5V
+* One of the TMP36 outer pins to MCP3008 pin **16** (VDD)
+* The other of the TMP36 outer pins to MCP3008 pin **14** (AGND)
+* The TMP36 middle pin to MCP3008 pin **1** (CH0)
 * The 0.1 μF condensator between the TMP36 middle pin and the TMP36 GND pin
 
 ### Research about the LCD display
