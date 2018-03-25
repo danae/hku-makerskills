@@ -130,7 +130,7 @@ Wiring (MCP3008 pins counted from left to right and top to bottom):
 * MCP3008 pin **7** to Pi SPI0 CE0 (hardware pin 24) or Pi SPI1 CE0 (hardware pin 12)
 * One of the TMP36 outer pins to MCP3008 pin **1** (5V)
 * The other of the TMP36 outer pins to MCP3008 pin **3** (GND)
-* The MCP3008 middle pin to MCP3008 pin **9**
+* The TMP36 middle pin to MCP3008 pin **9**
 * The 0.1 μF condensator between the TMP36 middle pin and the TMP36 GND pin
 
 ### Research about the LCD display
@@ -156,6 +156,8 @@ Wiring:
 * LCD pin **14** (D7) to Pi GPIO 18 (hardware pin 12)
 * LCD pin **15** (A) to Pi 5V
 * LCD pin **16** (K) to Pi GND
+* The potentiometer outer pin to Pi 5V
+* The potentiometer inner pin to Pi GND
 
 ### Research about audio output via GPIO
 
