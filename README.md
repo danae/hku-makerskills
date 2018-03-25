@@ -114,36 +114,40 @@ temperature = responseJson['list'][0]['main']
 
 The temperature sensor is an analog sensor and the Pi Zero only has digital inputs, thus the circuit needs an ADC. Domotix.com has a [nice tutorial](http://domoticx.com/raspberry-pi-temperatuur-sensor-tmp36-gpiomcp3008/) on this topic. It uses the **MCP3008** IC for the analog to digital conversion and the **TMP36** temperature sensor. Below is the wiring scheme they use to connect the sensor to a Pi:
 
-![TMP36 + MCP3008 wiring diagram](http://domoticx.com/wp-content/uploads/Raspberry-Pi-met-MCP3008-en-TMP36-schema-768x638.png)
-
 Needed components:
 * **TMP36** temperature sensor
 * **MCP3008** integrated circuit
 * 0.1 μF condensator
 
-Wiring (MCP3008 pins counted from left to right and top to bottom):
-* MCP3008 pin **1** and **2** to Pi 5V
-* MCP3008 pin **3** and **8** to Pi GND
-* MCP3008 pin **4** to Pi SPI0 SCLK (hardware pin 23) or Pi SPI1 SCLK (hardware pin 40)
-* MCP3008 pin **5** to Pi SPI0 MISO (hardware pin 21) or Pi SPI1 MISO (hardware pin 35)
-* MCP3008 pin **6** to Pi SPI0 MOSI (hardware pin 19) or Pi SPI1 MOSI (hardware pin 38)
-* MCP3008 pin **7** to Pi SPI0 CE0 (hardware pin 24) or Pi SPI1 CE0 (hardware pin 12)
-* One of the TMP36 outer pins to MCP3008 pin **1** (5V)
-* The other of the TMP36 outer pins to MCP3008 pin **3** (GND)
-* The TMP36 middle pin to MCP3008 pin **9**
+Pinout for the MCP3008 (original source: domoticx.com):
+![MCP3008 pinout](http://domoticx.com/wp-content/uploads/mcp3008-pinout.gif)
+
+Wiring (original source: domoticx.com):
+![TMP36 + MCP3008 wiring diagram](http://domoticx.com/wp-content/uploads/Raspberry-Pi-met-MCP3008-en-TMP36-schema-768x638.png)
+
+* MCP3008 pin **9** to Pi GND
+* MCP3008 pin **10** to Pi SPI0 CE0 (hardware pin 24) or Pi SPI1 CE0 (hardware pin 12)
+* MCP3008 pin **11** to Pi SPI0 MOSI (hardware pin 19) or Pi SPI1 MOSI (hardware pin 38)
+* MCP3008 pin **12** to Pi SPI0 MISO (hardware pin 21) or Pi SPI1 MISO (hardware pin 35)
+* MCP3008 pin **13** to Pi SPI0 SCLK (hardware pin 23) or Pi SPI1 SCLK (hardware pin 40)
+* MCP3008 pin **14** to Pi GND
+* MCP3008 pin **15** and **16** to Pi 5V
+* One of the TMP36 outer pins to MCP3008 pin **16** (5V)
+* The other of the TMP36 outer pins to MCP3008 pin **14** (GND)
+* The TMP36 middle pin to MCP3008 pin **1**
 * The 0.1 μF condensator between the TMP36 middle pin and the TMP36 GND pin
 
 ### Research about the LCD display
 
 I already have an  LCD display laying around for about 3 years so I thought it would be nice to incorporate that. AdaFruit has a [tutorial](https://learn.adafruit.com/character-lcd-with-raspberry-pi-or-beaglebone-black/wiring) on how to connect an LCD display directly on the GPIO pins. You could also connect it through a I2C bridge, but since I don't need many pins I decided to use this manner. Below is the wiring scheme for the LCD:
 
-![LCD wiring schene](https://cdn-learn.adafruit.com/assets/assets/000/018/260/large1024/raspberry_pi_RaspberryPiRGB_bb.png)
-
 Needed components:
 * LCD display 16x2 characters
 * **3362P** 10 kΩ variable potentiometer (or similar)
 
-Wiring:
+Wiring (original source: adafruit.com):
+![LCD wiring scheme](https://cdn-learn.adafruit.com/assets/assets/000/018/260/large1024/raspberry_pi_RaspberryPiRGB_bb.png)
+
 * LCD pin **1** (VSS) to Pi GND
 * LCD pin **2** (VDD) to Pi 5V
 * LCD pin **3** (V0) to the pontentiometer middle pin
