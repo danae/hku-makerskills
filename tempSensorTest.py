@@ -11,9 +11,9 @@ def read_spi(channel):
 try:
   while True:
     channeldata = read_spi(0)
-    voltage = round(((channeldata * 3300) / 1024),0)
-    temperatuur = ((voltage - 500) / 10)
-    print("Temperatuur = {} graden C".format(temperatuur))
+    millivolts = round((channeldata * 5.0 / 1024),0)
+    temperature = (millivolts - 500) / 10
+    print("Voltage = {:.0f} mV, Temperatuur = {:.1f} °C".format(millivolts,temperature))
     time.sleep(1)
                                      
 except KeyboardInterrupt:

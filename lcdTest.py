@@ -1,4 +1,5 @@
 import Adafruit_CharLCD as LCD
+import time
 
 # Raspberry Pi pin configuration
 LCD_RS = 27
@@ -16,6 +17,15 @@ ROWS = 2
 # Initialize the LCD using the pins above
 lcd = LCD.Adafruit_CharLCD(LCD_RS,LCD_EN,LCD_D4,LCD_D5,LCD_D6,LCD_D7,COLUMNS,ROWS,LCD_BACKLIGHT)
 
-# Print a two line message
-lcd.message('Hello!\nraspberry')
+zinnen = ['Hallo Richard','Alles goed?','Dit is een Pi']
+zin_index = 0
+
+while True:
+  lcd.message(zinnen[zin_index])
+
+  zin_index += 1
+  if zin_index == 3:
+    zin_index = 0
+
+  time.sleep(1.0)
 

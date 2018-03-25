@@ -1,4 +1,18 @@
 import requests
+import spidev
+from Adafruit_CharLCD import Adafruit_CharLCD as LCD
+
+# Constants for the Pi pins
+lcd_rs = 27
+lcd_en = 22
+lcd_d4 = 25
+lcd_d5 = 24
+lcd_d6 = 23
+lcd_d7 = 18
+
+# Other constants
+lcd_columns = 16
+lcd_rows = 2
 
 # Poll the current external temperature
 def pollExternalTemperature(query = 'Utrecht,NL'):
@@ -14,8 +28,15 @@ def pollExternalTemperature(query = 'Utrecht,NL'):
 
 # Main function
 def main():
-  extTemp = pollExternalTemperature('Hilversum,NL')
-  print(extTemp)
+  # Create the LCD output
+  lcd = LCD(lcd_rs,lcd_en,lcd_d4,lcd_d5,lcd_d6,lcd_d7,lcd_columns,lcd_rows)
+
+  # Get the external temperature
+  location = 'Kerkrade, NL'
+  extTemp = pollExternalTemperature(location)['temp']
+
+  # Print to the LCD
+  lcd.message('Ext:  {:.1f} {}C'.format(extTemp,chr(223)))
 
 # Execute the main function
 if __name__ == '__main__':
