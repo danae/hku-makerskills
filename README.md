@@ -143,6 +143,20 @@ Needed components:
 * LCD display 16x2 characters
 * **3362P** 10 kΩ variable potentiometer (or similar)
 
+Wiring:
+* LCD pin **1** (VSS) to Pi GND
+* LCD pin **2** (VDD) to Pi 5V
+* LCD pin **3** (V0) to the pontentiometer middle pin
+* LCD pin **4** (RS) to Pi GPIO 27 (hardware pin 13)
+* LCD pin **5** (RW) to Pi GND
+* LCD pin **6** (E) to Pi GPIO 22 (hardware pin 15)
+* LCD pin **11** (D4) to Pi GPIO 25 (hardware pin 22)
+* LCD pin **12** (D5) to Pi GPIO 24 (hardware pin 18)
+* LCD pin **13** (D6) to Pi GPIO 23 (hardware pin 16)
+* LCD pin **14** (D7) to Pi GPIO 18 (hardware pin 12)
+* LCD pin **15** (A) to Pi 5V
+* LCD pin **16** (K) to Pi GND
+
 ### Research about audio output via GPIO
 
 Obviously I need a speaker.
