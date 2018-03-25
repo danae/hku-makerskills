@@ -119,11 +119,8 @@ Needed components:
 * **MCP3008** integrated circuit
 * 0.1 μF condensator
 
-Pinout for the MCP3008 (original source: domoticx.com):
-![MCP3008 pinout](http://domoticx.com/wp-content/uploads/mcp3008-pinout.gif)
-
-Wiring (original source: domoticx.com):
-![TMP36 + MCP3008 wiring diagram](http://domoticx.com/wp-content/uploads/Raspberry-Pi-met-MCP3008-en-TMP36-schema-768x638.png)
+Wiring (original source: imformit.com):
+![TMP36 + MCP3008 wiring diagram](http://ptgmedia.pearsoncmg.com/images/art_blum1_rasppi_analog/elementLinks/blum1_fig02_alt.jpg)
 
 * MCP3008 pin **9** (DGND) to Pi GND
 * MCP3008 pin **10** (CS) to Pi SPI0 CE0 (hardware pin 24) or Pi SPI1 CE0 (hardware pin 12)
