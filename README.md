@@ -148,9 +148,7 @@ Needed components:
 * LCD display 16x2 characters
 * **3362P** 10 kΩ variable potentiometer (or similar)
 
-Wiring (original source: adafruit.com):
-![LCD wiring scheme](https://cdn-learn.adafruit.com/assets/assets/000/001/757/large1024/raspberry_pi_Untitled.png)
-
+Wiring (original source: domoticx.com):
 * LCD pin **1** (VSS) to Pi GND
 * LCD pin **2** (VDD) to Pi 5V
 * LCD pin **3** (V0) to the pontentiometer middle pin
