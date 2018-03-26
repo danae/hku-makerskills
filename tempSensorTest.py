@@ -1,20 +1,16 @@
-import spidev
 import time
+import Adafruit_GPIO.SPI as SPI
+from Adafruit_MCP3008 import MCP3008
  
-spi = spidev.SpiDev()
-spi.open(0,0)
+# Constants for the SPI connection
+spi_port = 0
+spi_device = 0
+mcp = MCP3008(spi=SPI.SpiDev(spi_port,spi_device))
   
-def read_spi(channel):
-  spidata = spi.xfer2([1,(8+channel)<<4,0])
-  return ((spidata[1] & 3) << 8) + spidata[2]
-       
-try:
-  while True:
-    channeldata = read_spi(0)
-    millivolts = round((channeldata * 5.0 / 1024),0)
-    temperature = (millivolts - 500) / 10
-    print("Voltage = {:.0f} mV, Temperatuur = {:.1f} °C".format(millivolts,temperature))
-    time.sleep(1)
-                                     
-except KeyboardInterrupt:
-  spi.close()
+while True:
+  channeldata = mcp.read_adc(0)
+  volts = channeldata * (5.0 / 1024.0)
+  temperature = (volts - 0.5) * 100.0
+  print("Data = {}, Voltage = {:.3f} V, Temperature = {:.1f} °C".format(channeldata,volts,temperature))
+  time.sleep(1)
+
