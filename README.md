@@ -112,7 +112,7 @@ temperature = responseJson['list'][0]['main']
 
 ### Research about the temperature sensor
 
-The temperature sensor is an analog sensor and the Pi Zero only has digital inputs, thus the circuit needs an ADC. Domotix.com has a [nice tutorial](http://domoticx.com/raspberry-pi-temperatuur-sensor-tmp36-gpiomcp3008/) on this topic. It uses the **MCP3008** IC for the analog to digital conversion and the **TMP36** temperature sensor. Below is the wiring scheme they use to connect the sensor to a Pi:
+The temperature sensor is an analog sensor and the Pi Zero only has digital inputs, thus the circuit needs an ADC. Domotix.com has a [nice tutorial](http://domoticx.com/raspberry-pi-temperatuur-sensor-tmp36-gpiomcp3008/) on this topic. It uses the **MCP3008** IC for the analog to digital conversion and the **TMP36** temperature sensor.
 
 Needed components:
 * **TMP36** temperature sensor
@@ -134,16 +134,22 @@ Wiring (original source: imformit.com):
 * The TMP36 middle pin to MCP3008 pin **1** (CH0)
 * The 0.1 μF condensator between the TMP36 middle pin and the TMP36 GND pin
 
+For the reading of the MCP3008 I use the [AdaFruit MCP3008 library](https://learn.adafruit.com/raspberry-pi-analog-to-digital-converters/mcp3008).
+
+Example code to test the temperature sensor:
+```python
+```
+
 ### Research about the LCD display
 
-I already have an  LCD display laying around for about 3 years so I thought it would be nice to incorporate that. AdaFruit has a [tutorial](https://learn.adafruit.com/character-lcd-with-raspberry-pi-or-beaglebone-black/wiring) on how to connect an LCD display directly on the GPIO pins. You could also connect it through a I2C bridge, but since I don't need many pins I decided to use this manner. Below is the wiring scheme for the LCD:
+I already have an  LCD display laying around for about 3 years so I thought it would be nice to incorporate that. AdaFruit has a [tutorial](https://learn.adafruit.com/character-lcd-with-raspberry-pi-or-beaglebone-black/wiring) on how to connect an LCD display directly on the GPIO pins. One could also connect it through a I2C bridge, but since I don't need many pins I decided to use this manner. Below is the wiring scheme for the LCD:
 
 Needed components:
 * LCD display 16x2 characters
 * **3362P** 10 kΩ variable potentiometer (or similar)
 
 Wiring (original source: adafruit.com):
-![LCD wiring scheme](https://cdn-learn.adafruit.com/assets/assets/000/018/260/large1024/raspberry_pi_RaspberryPiRGB_bb.png)
+![LCD wiring scheme](https://cdn-learn.adafruit.com/assets/assets/000/001/757/large1024/raspberry_pi_Untitled.png)
 
 * LCD pin **1** (VSS) to Pi GND
 * LCD pin **2** (VDD) to Pi 5V
@@ -159,6 +165,32 @@ Wiring (original source: adafruit.com):
 * LCD pin **16** (K) to Pi GND
 * The potentiometer outer pin to Pi 5V
 * The potentiometer inner pin to Pi GND
+
+For the interaction with the LCD display I use the [AdaFruit CHarLCD library](https://github.com/adafruit/Adafruit_Python_CharLCD).
+
+Example code to test the display:
+```python
+import Adafruit_CharLCD as LCD
+
+# Raspberry Pi pin configuration
+LCD_RS = 27
+LCD_EN = 22
+LCD_D4 = 25
+LCD_D5 = 24
+LCD_D6 = 23
+LCD_D7 = 18
+LCD_BACKLIGHT = 4
+
+# Define LCD column and row size for 16x2 LCD
+COLUMNS = 16
+ROWS = 2
+
+# Initialize the LCD using the pins above
+lcd = LCD.Adafruit_CharLCD(LCD_RS,LCD_EN,LCD_D4,LCD_D5,LCD_D6,LCD_D7,COLUMNS,ROWS,LCD_BACKLIGHT)
+
+# Print a two line message
+lcd.message('Hello!\nraspberry')
+```
 
 ### Research about audio output via GPIO
 
