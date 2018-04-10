@@ -19,7 +19,7 @@ This section discusses installing the Pi and configure its networks so I can acc
 
 ### Access the Pi on Windows
 
-First install the latest Raspbian Jessie from the Raspberry Pi website and update the packages (using `sudo apt update` and `sudo apt upgrade`). Now to access the Pi on a Windows machine, take the following steps:
+First install the latest Raspbian Stretch from the Raspberry Pi website and update the packages (using `sudo apt update` and `sudo apt upgrade`). Now to access the Pi on a Windows machine, take the following steps:
 
 1. Boot into the Pi using a display and keyboard.
 2. Make sure an SSH server is running (use `raspi-config` to enable).
@@ -38,21 +38,23 @@ g_ether
 
 5. Reboot the Pi and connect an USB cable from the pc to the USB port of the Pi.
 
-If the Pi isn't discovered as an *USB Ethernet/RNDIS Gadget*, then follow the steps on [this French website](http://domotique.caron.ws/cartes-microcontroleurs/raspberrypi/pi-zero-otg-ethernet/) to install the correct driver:
+The first time I did this the Pi wasn't discovered as an *USB Ethernet/RNDIS Gadget*, so I followed the steps on [this French website](http://domotique.caron.ws/cartes-microcontroleurs/raspberrypi/pi-zero-otg-ethernet/) to install the correct driver:
 
 6. Download the RNDIS driver provided by the website and extract it.
 7. In the Windows Device Manager, locate the Pi, right click on it and select *Properties*.
 8. Install the driver by locating it with the *Install driver...*  option.
 
-Now I can SSH into the Pi using its IPv6 address on the `usb0` interface, e.g.:
+Now you can SSH into the Pi using its IPv6 address on the `usb0` interface, e.g.:
 
 ```shell
 ssh pi@fe80::5563:28e9:b94e:8c3c%eth3
 ```
 
-However every time the Pi boots the IPv6 address changes, due to the virtual network that is created, so I would like to use the hostname of the Pi to SSH into it or set a fixed IP address.
+Note: make sure that your Pi is stored safe, so that the SD card cannot bend or break and you don't have to buy a new SD card and re-install all the software ;).
 
 ### Set a fixed IPv6 address
+
+Every time the Pi boots the IPv6 address changes, due to the virtual network that is created. There are some tutorial to set up an automatic DNS service, so that the hostname `raspberrypi.local` is automatically linked to the correct IP address. This is done using a *Zeroconf* or *Bomnjour* service for Windows. However none of the tutorials I found worked, so I decided to give the Pi a fixed IP address, e.g. `169.254.64.64` and `fe80::40:40`.
 
 To set a fixed IPv6 address, add the following lines to the `/etc/dhcpcd.conf` file:
 
@@ -68,15 +70,15 @@ Reboot the Pi. You can now SSH into the Pi using the IPv6 address:
 ssh pi@fe80::40:40
 ```
 
-For now this is the best solution, since Windows doesn't have any zeroconf or bonjour servces installed and the ones I tried don't work.
-
 ### Accessing the internet via the OTG cable
 
 With this settings the Pi is accessible from the host computer, but it does not have access to the internet yet. This is because the RNDIS driver creates an own virtual network on the host computer which is not visible to the main network and vice versa. I tried to overcome this by setting a fixed MAC address (thanks to [this tutorial](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=199588&p=1245602#p1245457) by adding the following line to the file `/etc/modprobe.d/g_ether.conf`. Replace xx with any hexadecimal numbers that don't match other MAC addresses on your network:
 
-        options g_ether dev_addr=xx:xx:xx:xx:xx:xx
-        
-Unfortunately that didn't work, so for now I use the `wlan0` WiFi interface to connect to a hotspot.
+```
+options g_ether dev_addr=xx:xx:xx:xx:xx:xx
+```
+
+Unfortunately that didn't work. I also tried to create a network bridge from the virtual network to the ethernet network on my pc, but without any luck. So for now I use the `wlan0` WiFi interface to connect to a hotspot created on my pc.
 
 
 ## Using a PiTFT display
@@ -84,6 +86,8 @@ Unfortunately that didn't work, so for now I use the `wlan0` WiFi interface to c
 I use a [PiTFT Plus 2.8" capacitive touch display](https://www.adafruit.com/product/2298) to easily access the terminal on the Pi Zero. It connects directly to the GPIO pins, so it doesn't need an extra HDMI or USB port.
 
 Unfortunately the [original AdaFruit tutorial](https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/easy-install) didn't work due to certificate problems. I used [this script](https://forums.adafruit.com/viewtopic.php?f=24&t=54246&sid=19ba7b71b9dcca00a538d2da6d6121e3&start=15#p630193) proviced by AdaFruit support to install the PiTFT.
+
+One caveat is that I cannot use any SPI sensors while using the PiTFT, because the driver claims the SPI drives so that is not accessible to other programs. In the end product I thus did not use the PiTFT display in favor of ohter sensors. Moreover the PiTFT seems to be only useable with a GPIO bridge, because the redirected header pins are hidden between the display and the Pi.
 
 
 ## Using sensors and other inputs
@@ -102,11 +106,14 @@ response = requests.get(url, params = {'appid': '6b1a98fea6d95bbb8239e5ab471d5dd
 responseJson = response.json()
 
 temperature = responseJson['list'][0]['main']
+print(temperature)
 ```
+
+This script displays the current temperature in degrees Celsius, measured by a weather sation.
 
 ### Research about the temperature sensor
 
-The temperature sensor is an analog sensor and the Pi Zero only has digital inputs, thus the circuit needs an ADC. Domotix.com has a [nice tutorial](http://domoticx.com/raspberry-pi-temperatuur-sensor-tmp36-gpiomcp3008/) on this topic. It uses the **MCP3008** IC for the analog to digital conversion and the **TMP36** temperature sensor.
+The temperature sensor is an analog sensor and the Pi Zero only has digital inputs, thus the circuit needs an analog to digital convertor. Domotix.com has a [nice tutorial](http://domoticx.com/raspberry-pi-temperatuur-sensor-tmp36-gpiomcp3008/) on this topic. It uses the **MCP3008** IC for the analog to digital conversion and the **TMP36** temperature sensor.
 
 Needed components:
 * **TMP36** temperature sensor
@@ -114,6 +121,7 @@ Needed components:
 * 0.1 μF condensator
 
 Wiring (original source: imformit.com):
+
 ![TMP36 + MCP3008 wiring diagram](http://ptgmedia.pearsoncmg.com/images/art_blum1_rasppi_analog/elementLinks/blum1_fig02_alt.jpg)
 
 * MCP3008 pin **9** (DGND) to Pi GND
@@ -130,17 +138,17 @@ Wiring (original source: imformit.com):
 
 For the reading of the MCP3008 I use the [AdaFruit MCP3008 library](https://learn.adafruit.com/raspberry-pi-analog-to-digital-converters/mcp3008).
 
-Example code to test the temperature sensor (`tempSensorTest.py` in the repo):
+Example code to test the temperature sensor (`tempSensorTest.py` in the repository):
 ```python
 import time
 import Adafruit_GPIO.SPI as SPI
 from Adafruit_MCP3008 import MCP3008
- 
+
 # Constants for the SPI connection
 spi_port = 0
 spi_device = 0
 mcp = MCP3008(spi=SPI.SpiDev(spi_port,spi_device))
-  
+
 while True:
   channeldata = mcp.read_adc(0)
   volts = channeldata * (5.0 / 1024.0)
@@ -148,6 +156,8 @@ while True:
   print("Data = {}, Voltage = {:.3f} V, Temperature = {:.1f} °C".format(channeldata,volts,temperature))
   time.sleep(1)
 ```
+
+In the `tempSensorTest` folder in the repository is a Arduino script that tests the MCP3008 on the Arduino. I used this script to test if the IC was working, because I got strange results when connecting it to the Pi. Eventually I found out that I mixed the Python code of two tutorials, causing the script to read the voltage in millivolts where the calculation was expecting a value in volts. I easily corrected this and the MCP3008 worked as espected.
 
 ### Research about the LCD display
 
@@ -173,9 +183,11 @@ Wiring (original source: domoticx.com):
 * The potentiometer outer pin to Pi 5V
 * The potentiometer inner pin to Pi GND
 
+At first the LCD display didn't work correctly; it didn't receive any data. Re-soldering the header om the Pi resolved this issue, so probably some pins weren't connected properly.
+
 For the interaction with the LCD display I use the [AdaFruit CHarLCD library](https://github.com/adafruit/Adafruit_Python_CharLCD).
 
-Example code to test the display (`lcdTest.py` in the repo):
+Example code to test the display (`lcdTest.py` in the repository):
 ```python
 import Adafruit_CharLCD as LCD
 
@@ -207,7 +219,7 @@ I wanted to make a little weather device that can interact in the following ways
 * Depending on those two temperature variables (and possibly other weather variables) the device outputs algorithmic music.
 * The device has a LCD display to indicate its state in a visual way.
 
-I unfortunately didn't have time to work on the sound part, but the temperature sensor, the weather API and the display are working. I use the following script to display date, time and both temperature values (`weather.py` in the repo):
+I unfortunately didn't have time to work on the sound part, but the temperature sensor, the weather API and the display are working. I use the following script to display date, time and both temperature values (`weather.py` in the repository):
 
 ```python
 import requests
@@ -247,7 +259,7 @@ class WeatherDevice:
     channeldata = self.mcp.read_adc(0)
     volts = channeldata * (5.0 / 1024.0)
     return (volts - 0.5) * 100.0
-  
+
   # Poll the current external temperature
   def poll_external_temperature(self, query = "Utrecht, NL"):
     url = "https://api.openweathermap.org/data/2.5/find?q={}".format(query)
